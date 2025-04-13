@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./TransactionModal.css";
 import Button from "../Button";
-import axios from "axios";
 import { useStateContext } from "../../contexts/ContextProvider";
 
 export default function ApiModal({ isOpen, onClose }) {
@@ -25,20 +25,28 @@ export default function ApiModal({ isOpen, onClose }) {
         company,
         employee,
         lastUpdated: new Date().toISOString().split("T")[0], // Optional - will default in schema
-        Country: "Global" // Optional - will default in schema
+        Country: "Global", // Optional - will default in schema
       };
 
-      if(user.role == "user") {
+      if (user.role === 'user') {
         const userId = user._id; // Get the user ID from localStorage
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/${userId}`, newApi);
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/api/${userId}`,
+          newApi
+        );
         console.log("API added:", response.data);
         const existingApis = JSON.parse(localStorage.getItem("apiData")) || [];
         const updatedApis = [...existingApis, response.data];
         localStorage.setItem("apiData", JSON.stringify(updatedApis));
-        await axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api`, newApi);
-      }
-      else{
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api`, newApi);
+        await axios.post(
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/api`,
+          newApi
+        );
+      } else {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/api`,
+          newApi
+        );
         console.log("API added:");
 
         // ✅ Optional: Update localStorage if you store APIs locally
@@ -47,7 +55,7 @@ export default function ApiModal({ isOpen, onClose }) {
         localStorage.setItem("apiData", JSON.stringify(updatedApis));
       }
 
-      window.location.reload(); 
+      window.location.reload();
 
       onClose(); // close modal
     } catch (error) {

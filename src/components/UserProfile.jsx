@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
-import { MdOutlineCancel } from 'react-icons/md';
+import React from "react";
+import { MdOutlineCancel } from "react-icons/md";
 
-import { Button } from '.';
-import { userProfileData } from '../data/dummy';
-import { useStateContext } from '../contexts/ContextProvider';
-import avatar from '../data/avatar.jpg';
-import { useNavigate } from 'react-router-dom';
-import ConfirmDialog from './Modal/ConfirmDialog';
+import { Button } from ".";
+import { userProfileData } from "../data/dummy";
+import { useStateContext } from "../contexts/ContextProvider";
+import avatar from "../data/avatar.jpg";
 
-const UserProfile = ({isDialogOpen, setIsDialogOpen}) => {
+const UserProfile = ({ setIsDialogOpen }) => {
   const { currentColor } = useStateContext();
 
-  const user = JSON.parse(localStorage.getItem('user'));
-  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   // const handleLogout = () => {
   //   localStorage.removeItem('user');
@@ -24,8 +21,6 @@ const UserProfile = ({isDialogOpen, setIsDialogOpen}) => {
   //   localStorage.removeItem('themeMode');
   //   navigate('/');
   // }
-
-  
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -46,14 +41,26 @@ const UserProfile = ({isDialogOpen, setIsDialogOpen}) => {
           alt="user-profile"
         />
         <div>
-          <p className="font-semibold text-xl dark:text-gray-200"> {user.name} </p>
-          <p className="text-gray-500 text-sm dark:text-gray-400">  {user.role}   </p>
-          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> {user.email} </p>
+          <p className="font-semibold text-xl dark:text-gray-200">
+            {" "}
+            {user.name}{" "}
+          </p>
+          <p className="text-gray-500 text-sm dark:text-gray-400">
+            {" "}
+            {user.role}{" "}
+          </p>
+          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400">
+            {" "}
+            {user.email}{" "}
+          </p>
         </div>
       </div>
       <div>
         {userProfileData.map((item, index) => (
-          <div key={index} className="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer  dark:hover:bg-[#42464D]">
+          <div
+            key={index}
+            className="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer  dark:hover:bg-[#42464D]"
+          >
             <button
               type="button"
               style={{ color: item.iconColor, backgroundColor: item.iconBg }}
@@ -64,7 +71,10 @@ const UserProfile = ({isDialogOpen, setIsDialogOpen}) => {
 
             <div>
               <p className="font-semibold dark:text-gray-200 ">{item.title}</p>
-              <p className="text-gray-500 text-sm dark:text-gray-400"> {item.desc} </p>
+              <p className="text-gray-500 text-sm dark:text-gray-400">
+                {" "}
+                {item.desc}{" "}
+              </p>
             </div>
           </div>
         ))}
@@ -78,9 +88,7 @@ const UserProfile = ({isDialogOpen, setIsDialogOpen}) => {
           width="full"
         />
       </div>
-      
     </div>
-
   );
 };
 

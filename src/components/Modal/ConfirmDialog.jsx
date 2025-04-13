@@ -1,24 +1,29 @@
-import React from "react"
-import { FiAlertTriangle } from "react-icons/fi"
-import "./ConfirmDialog.css"
+import React from "react";
+import { FiAlertTriangle } from "react-icons/fi";
+import "./ConfirmDialog.css";
 import { useNavigate } from "react-router-dom";
 
-export default function ConfirmDialog({ isOpen, onClose, onConfirm, message, heading }) {
-  if (!isOpen) return null
+export default function ConfirmDialog({
+  isOpen,
+  onClose,
+  message,
+  heading,
+}) {
+  if (!isOpen) return null;
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('websiteData');
-    localStorage.removeItem('apiData');
-    localStorage.removeItem('databaseData');
-    localStorage.removeItem('calendarData');
-    localStorage.removeItem('colorMode');
-    localStorage.removeItem('themeMode');
-    navigate('/');
+    localStorage.removeItem("user");
+    localStorage.removeItem("websiteData");
+    localStorage.removeItem("apiData");
+    localStorage.removeItem("databaseData");
+    localStorage.removeItem("calendarData");
+    localStorage.removeItem("colorMode");
+    localStorage.removeItem("themeMode");
+    navigate("/");
     window.location.reload();
-  }
+  };
 
   return (
     <div className="modal-overlay">
@@ -39,5 +44,5 @@ export default function ConfirmDialog({ isOpen, onClose, onConfirm, message, hea
         </div>
       </div>
     </div>
-  )
+  );
 }

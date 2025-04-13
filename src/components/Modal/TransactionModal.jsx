@@ -1,8 +1,19 @@
-import React from "react"
-import "./TransactionModal.css"
+import React from "react";
+import "./TransactionModal.css";
 
-export default function TransactionModal({ isOpen, heading, message, label1, placeholder1, label2, placeholder2, label3, placeholder3, onClose }) {
-  if (!isOpen) return null
+export default function TransactionModal({
+  isOpen,
+  heading,
+  message,
+  label1,
+  placeholder1,
+  label2,
+  placeholder2,
+  label3,
+  placeholder3,
+  onClose,
+}) {
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay">
@@ -33,7 +44,7 @@ export default function TransactionModal({ isOpen, heading, message, label1, pla
             className="submit-btn"
             onClick={() => {
               // you can handle the submit logic here
-              onClose()
+              onClose();
             }}
           >
             Add Transaction
@@ -41,5 +52,5 @@ export default function TransactionModal({ isOpen, heading, message, label1, pla
         </div>
       </div>
     </div>
-  )
+  );
 }

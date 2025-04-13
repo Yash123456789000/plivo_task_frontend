@@ -1,8 +1,8 @@
-import React from "react"
-import "./TransactionModal.css"
+import React from "react";
+import "./TransactionModal.css";
 
 export default function TeamsModal({ isOpen, onClose }) {
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay">
@@ -17,7 +17,7 @@ export default function TeamsModal({ isOpen, onClose }) {
           </label>
           <label>
             Team
-            <input type="number" placeholder="e.g. Sales Team"/>
+            <input type="number" placeholder="e.g. Sales Team" />
           </label>
           <label>
             Position
@@ -33,7 +33,7 @@ export default function TeamsModal({ isOpen, onClose }) {
             className="submit-btn"
             onClick={() => {
               // you can handle the submit logic here
-              onClose()
+              onClose();
             }}
           >
             Add Team
@@ -41,5 +41,5 @@ export default function TeamsModal({ isOpen, onClose }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

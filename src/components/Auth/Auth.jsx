@@ -1,124 +1,178 @@
-import React, { useEffect, useState } from 'react';
-import './Auth.css';
-import axios from 'axios';
-import { useStateContext } from '../../contexts/ContextProvider';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Auth.css";
+import axios from "axios";
 
 const Login = () => {
   useEffect(() => {
-    const container = document.getElementById('container');
-    const registerBtn = document.getElementById('register');
-    const loginBtn = document.getElementById('login');
+    const container = document.getElementById("container");
+    const registerBtn = document.getElementById("register");
+    const loginBtn = document.getElementById("login");
 
-    registerBtn.addEventListener('click', () => {
+    registerBtn.addEventListener("click", () => {
       container.classList.add("active");
     });
 
-    loginBtn.addEventListener('click', () => {
+    loginBtn.addEventListener("click", () => {
       container.classList.remove("active");
     });
 
     return () => {
-      registerBtn.removeEventListener('click', () => {});
-      loginBtn.removeEventListener('click', () => {});
+      registerBtn.removeEventListener("click", () => {});
+      loginBtn.removeEventListener("click", () => {});
     };
   }, []);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [signUpName, setSignUpName] = useState('');
-  const [signUpEmail, setSignUpEmail] = useState('');
-  const [signUpPassword, setSignUpPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [signUpName, setSignUpName] = useState("");
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [signUpPassword, setSignUpPassword] = useState("");
 
   const navigate = useNavigate();
-
-
 
   const handleSignIn = (e) => {
     e.preventDefault();
     console.log(`${process.env.REACT_APP_BACKEND_BASE_URL}/login`);
-    axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/login`,{email, password})
-    .then((response) => {
-      console.log(response.data);
-      localStorage.setItem('user', JSON.stringify(response.data));
-      navigate('/');
-      window.location.reload();
-      alert('Login successful!');
-    })
-    .catch((error) => {
-      console.error('There was an error logging in!', error);
-    });
-    
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/login`, {
+        email,
+        password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        navigate("/");
+        window.location.reload();
+        alert("Login successful!");
+      })
+      .catch((error) => {
+        console.error("There was an error logging in!", error);
+      });
   };
   const handleSignUp = (e) => {
     e.preventDefault();
-    axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/register`,{name: signUpName, email: signUpEmail, password: signUpPassword})
-    .then((response) => {
-      console.log(response.data);
-      localStorage.setItem('user', JSON.stringify(response.data));
-      navigate('/');
-      window.location.reload();
-      alert('Account created successfully!');
-    })
-    .catch((error) => {
-      console.error('There was an error creating the account!', error);
-    });
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/register`, {
+        name: signUpName,
+        email: signUpEmail,
+        password: signUpPassword,
+      })
+      .then((response) => {
+        console.log(response.data);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        navigate("/");
+        window.location.reload();
+        alert("Account created successfully!");
+      })
+      .catch((error) => {
+        console.error("There was an error creating the account!", error);
+      });
   };
 
-  
-
   return (
-    <div className='login-page-container'>
-    <div className="container" id="container">
-      <div className="form-container sign-up">
-        <form onSubmit={handleSignUp}>
-          <h1>Create Account</h1>
-          <div className="social-icons">
-            <a href="#" className="icon"><i className="fa-brands fa-google-plus-g"></i></a>
-            <a href="#" className="icon"><i className="fa-brands fa-facebook-f"></i></a>
-            <a href="#" className="icon"><i className="fa-brands fa-microsoft"></i></a>
-            <a href="#" className="icon"><i className="fa-light fa-mobile-screen"></i></a>
-          </div>
-          <span>or use your email for registration</span>
-          <input type="text" value={signUpName} onChange={(e)=>{setSignUpName(e.target.value); console.log(signUpName)}} placeholder="Name" />
-          <input type="email" value={signUpEmail} onChange={(e)=>setSignUpEmail(e.target.value)} placeholder="Email" />
-          <input type="password" value={signUpPassword} onChange={(e)=>setSignUpPassword(e.target.value)} placeholder="Password" />
-          <button type="submit">Sign Up</button>
-        </form>
-      </div>
+    <div className="login-page-container">
+      <div className="container" id="container">
+        <div className="form-container sign-up">
+          <form onSubmit={handleSignUp}>
+            <h1>Create Account</h1>
+            <div className="social-icons">
+              <a href="#" className="icon">
+                <i className="fa-brands fa-google-plus-g"></i>
+              </a>
+              <a href="#" className="icon">
+                <i className="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="#" className="icon">
+                <i className="fa-brands fa-microsoft"></i>
+              </a>
+              <a href="#" className="icon">
+                <i className="fa-light fa-mobile-screen"></i>
+              </a>
+            </div>
+            <span>or use your email for registration</span>
+            <input
+              type="text"
+              value={signUpName}
+              onChange={(e) => {
+                setSignUpName(e.target.value);
+                console.log(signUpName);
+              }}
+              placeholder="Name"
+            />
+            <input
+              type="email"
+              value={signUpEmail}
+              onChange={(e) => setSignUpEmail(e.target.value)}
+              placeholder="Email"
+            />
+            <input
+              type="password"
+              value={signUpPassword}
+              onChange={(e) => setSignUpPassword(e.target.value)}
+              placeholder="Password"
+            />
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
 
-      <div className="form-container sign-in">
-        <form onSubmit={handleSignIn}>
-          <h1>Sign In</h1>
-          <div className="social-icons">
-            <a href="#" className="icon"><i className="fa-brands fa-google-plus-g"></i></a>
-            <a href="#" className="icon"><i className="fa-brands fa-facebook-f"></i></a>
-            <a href="#" className="icon"><i className="fa-brands fa-microsoft"></i></a>
-            <a href="#" className="icon"><i className="fa-brands fa-linkedin-in"></i></a>
-          </div>
-          <span>or use your email password</span>
-          <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email" />
-          <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password" />
-          <a href="#">Forget Your Password?</a>
-          <button type="submit">Sign In</button>
-        </form>
-      </div>
+        <div className="form-container sign-in">
+          <form onSubmit={handleSignIn}>
+            <h1>Sign In</h1>
+            <div className="social-icons">
+              <a href="#" className="icon">
+                <i className="fa-brands fa-google-plus-g"></i>
+              </a>
+              <a href="#" className="icon">
+                <i className="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="#" className="icon">
+                <i className="fa-brands fa-microsoft"></i>
+              </a>
+              <a href="#" className="icon">
+                <i className="fa-brands fa-linkedin-in"></i>
+              </a>
+            </div>
+            <span>or use your email password</span>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+            />
+            <a href="#">Forget Your Password?</a>
+            <button type="submit">Sign In</button>
+          </form>
+        </div>
 
-      <div className="toggle-container">
-        <div className="toggle">
-          <div className="toggle-panel toggle-left">
-            <h1>Welcome Back!</h1>
-            <p>Enter your personal details to use all of site features</p>
-            <button className="hidden-auth" id="login">Sign In</button>
-          </div>
-          <div className="toggle-panel toggle-right">
-            <h1>Hello, Friend!</h1>
-            <p>Register with your personal details to use all of site features</p>
-            <button className="hidden-auth" id="register">Sign Up</button>
+        <div className="toggle-container">
+          <div className="toggle">
+            <div className="toggle-panel toggle-left">
+              <h1>Welcome Back!</h1>
+              <p>Enter your personal details to use all of site features</p>
+              <button className="hidden-auth" id="login">
+                Sign In
+              </button>
+            </div>
+            <div className="toggle-panel toggle-right">
+              <h1>Hello, Friend!</h1>
+              <p>
+                Register with your personal details to use all of site features
+              </p>
+              <button className="hidden-auth" id="register">
+                Sign Up
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div></div>
+    </div>
   );
 };
 
