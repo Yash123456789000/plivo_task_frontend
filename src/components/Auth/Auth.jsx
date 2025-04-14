@@ -47,12 +47,13 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(response.data));
         navigate("/");
         window.location.reload();
-        alert("Login successful!");
         setIsLoading(false);
+        alert("Login successful!");
       })
       .catch((error) => {
         console.error("There was an error logging in!", error);
         setIsLoading(false);
+        alert("There was an error logging in!");
       });
   };
   const handleSignUp = (e) => {
@@ -75,6 +76,7 @@ const Login = () => {
       .catch((error) => {
         console.error("There was an error creating the account!", error);
         setIsLoading(false);
+        alert("There was an error logging in!");
       });
   };
 
