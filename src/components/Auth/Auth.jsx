@@ -53,7 +53,7 @@ const Login = () => {
       .catch((error) => {
         console.error("There was an error logging in!", error);
         setIsLoading(false);
-        alert("There was an error logging in!");
+        alert("Please check your credentials and try again!!");
       });
   };
   const handleSignUp = (e) => {
@@ -76,7 +76,7 @@ const Login = () => {
       .catch((error) => {
         console.error("There was an error creating the account!", error);
         setIsLoading(false);
-        alert("There was an error logging in!");
+        alert("There was an error creating the account!! Please try again!");
       });
   };
 
@@ -109,18 +109,21 @@ const Login = () => {
                 console.log(signUpName);
               }}
               placeholder="Name"
+              required
             />
             <input
               type="email"
               value={signUpEmail}
               onChange={(e) => setSignUpEmail(e.target.value)}
               placeholder="Email"
+              required
             />
             <input
               type="password"
               value={signUpPassword}
               onChange={(e) => setSignUpPassword(e.target.value)}
               placeholder="Password"
+              required
             />
             <button type="submit">{isLoading?"Loading...":"Sign Up"}</button>
           </form>
@@ -149,12 +152,14 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              required
             />
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
+              required
             />
             <a href="#">Forget Your Password?</a>
             <button type="submit">{isLoading?"Loading...":"Sign In"}</button>
