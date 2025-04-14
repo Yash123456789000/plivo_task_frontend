@@ -29,11 +29,14 @@ const Login = () => {
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    console.log(`${process.env.REACT_APP_BACKEND_BASE_URL}/login`);
+    // console.log(`${process.env.REACT_APP_BACKEND_BASE_URL}/login`);
+    setIsLoading(true);
     axios
       .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/login`, {
         email,
@@ -45,13 +48,16 @@ const Login = () => {
         navigate("/");
         window.location.reload();
         alert("Login successful!");
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("There was an error logging in!", error);
+        setIsLoading(false);
       });
   };
   const handleSignUp = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     axios
       .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/register`, {
         name: signUpName,
@@ -64,9 +70,11 @@ const Login = () => {
         navigate("/");
         window.location.reload();
         alert("Account created successfully!");
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("There was an error creating the account!", error);
+        setIsLoading(false);
       });
   };
 
@@ -112,7 +120,7 @@ const Login = () => {
               onChange={(e) => setSignUpPassword(e.target.value)}
               placeholder="Password"
             />
-            <button type="submit">Sign Up</button>
+            <button type="submit">{isLoading?"Loading...":"Sign Up"}</button>
           </form>
         </div>
 
@@ -147,7 +155,7 @@ const Login = () => {
               placeholder="Password"
             />
             <a href="#">Forget Your Password?</a>
-            <button type="submit">Sign In</button>
+            <button type="submit">{isLoading?"Loading...":"Sign In"}</button>
           </form>
         </div>
 
